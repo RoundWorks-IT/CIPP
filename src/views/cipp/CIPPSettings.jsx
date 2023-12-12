@@ -724,6 +724,13 @@ const ExcludedTenantsSettings = () => {
       exportSelector: 'defaultDomainName',
     },
     {
+      name: 'Relationship Type',
+      selector: (row) => row['delegatedPrivilegeStatus'],
+      sortable: true,
+      cell: (row) => CellDelegatedPrivilege({ cell: row['delegatedPrivilegeStatus'] }),
+      exportSelector: 'delegatedPrivilegeStatus',
+    },
+    {
       name: 'Excluded',
       selector: (row) => row['Excluded'],
       sortable: true,
@@ -830,6 +837,15 @@ const ExcludedTenantsSettings = () => {
             {
               filterName: 'Included Tenants',
               filter: 'Complex: Excluded eq false',
+            },
+            {
+              filterName: 'GDAP & DAP',
+              filter:
+                'Complex: delegatedPrivilegeStatus eq delegatedAndGranularDelegetedAdminPrivileges',
+            },
+            {
+              filterName: 'GDAP Only',
+              filter: 'Complex: delegatedPrivilegeStatus eq granularDelegatedAdminPrivileges',
             },
           ],
           keyField: 'id',
