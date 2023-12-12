@@ -15,7 +15,7 @@ import {
 } from 'src/components/forms'
 import { TenantSelector } from 'src/components/utilities'
 import { useListUsersQuery } from 'src/store/api/users'
-import { useGenericGetRequestQuery, useLazyGenericPostRequestQuery } from 'src/store/api/app'
+import { useLazyGenericPostRequestQuery } from 'src/store/api/app'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -48,13 +48,6 @@ const OffboardingWizard = () => {
     isFetching: usersIsFetching,
     error: usersError,
   } = useListUsersQuery({ tenantDomain })
-
-  const {
-    data: recipients = [],
-    isFetching: recipientsIsFetching,
-    error: recipientsError,
-  } = useGenericGetRequestQuery({ path: `/api/ListRecipients?tenantFilter=${tenantDomain}` })
-
   const currentSettings = useSelector((state) => state.app)
   const [genericPostRequest, postResults] = useLazyGenericPostRequestQuery()
 
@@ -201,7 +194,7 @@ const OffboardingWizard = () => {
               />
               <RFFSelectSearch
                 label="Forward email to other user"
-                values={recipients
+                values={users
                   ?.filter((x) => x.mail)
                   .map((user) => ({
                     value: user.mail,

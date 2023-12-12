@@ -1,5 +1,5 @@
 import React from 'react'
-import { CButton, CDropdownItem } from '@coreui/react'
+import { CButton } from '@coreui/react'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import PropTypes from 'prop-types'
@@ -39,12 +39,13 @@ function ExportPDFButton(props) {
   }
 
   return (
-    <CDropdownItem
+    <CButton
+      size="sm"
+      className="m-1"
       onClick={() => exportPDF(props.pdfData, props.pdfHeaders, props.pdfSize, props.reportName)}
     >
-      <FontAwesomeIcon className="me-2" icon={faFilePdf} />
-      {props.nameText}
-    </CDropdownItem>
+      <FontAwesomeIcon icon={faFilePdf} size="lg" />
+    </CButton>
   )
 }
 export default ExportPDFButton
@@ -54,5 +55,4 @@ ExportPDFButton.propTypes = {
   pdfHeaders: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   pdfSize: PropTypes.oneOf(['A1', 'A2', 'A3', 'A4']),
   reportName: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
-  nameText: PropTypes.string,
 }
